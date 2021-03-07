@@ -1,0 +1,75 @@
+#!/bin/bash
+
+readonly gtest_version=1.10.0
+readonly boost_version=1.73.0
+
+readonly source_dir="${THIRD_PARTY_ROOT}/source"
+readonly install_dir="${THIRD_PARTY_ROOT}/install"
+
+fetch_gtest()
+{
+  curl \
+      --silent \
+      --location \
+      https://github.com/google/googletest/archive/release-${gtest_version}.tar.gz \
+      | tar -xz --directory ${source_dir}
+}
+
+install_gtest()
+{
+  mkdir --parents ${source_dir}/googletest-release-${gtest_version}/build \
+      && cd ${source_dir}/googletest-release-${gtest_version}/build \
+      && cmake .. \
+      && make install DESTDIR=${install_dir}/googletest-${gtest_version}
+}
+
+gtest()
+{
+  fetch_gtest && install_gtest
+}
+
+fetch_boost()
+{
+  local ver="${boost_version//./_}"
+  curl \
+      --silent \
+      --location \
+        https://dl.bintray.com/boostorg/release/${boost_version}/source/boost_${ver}.tar.gz \
+      |tar -xz --directory ${source_dir}
+}
+
+install_boost()
+{
+  local ver="${boost_version//./_}"
+  local workdir="${source_dir}/boost_${ver}"
+  cd ${workdir} \
+    && ./bootstrap.sh \
+    && ./b2 install \
+       --prefix=${install_dir}/boost_${ver} \
+       --with-program_options
+}
+
+boost()
+{
+  fetch_boost && install_boost
+}
+
+all()
+{
+  mkdir --parents ${source_dir} ${install_dir} \
+    && gtest \
+    && boost
+}
+
+if [[ -z "${THIRD_PARTY_ROOT}" ]]; then
+  echo "Environment variable THIRD_PARTY_ROOT not set"
+  exit 1
+elif [[ ${#} -eq 0 ]]; then
+  all
+else
+  # execute functions individually from cmdline args:
+  for fcn in "${@}"; do
+    echo "* ${fcn}"
+    ${fcn}
+  done
+fi

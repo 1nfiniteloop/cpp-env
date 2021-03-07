@@ -1,0 +1,6 @@
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_CONTACT "Lars Gunnarsson <gunnarsson.lars@gmail.com>")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "${PROJECT_HOMEPAGE_URL}")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6")
+
+include(CPack)

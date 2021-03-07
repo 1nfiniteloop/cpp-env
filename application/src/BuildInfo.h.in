@@ -1,0 +1,8 @@
+#pragma once
+
+namespace application
+{
+constexpr const char* BUILD_VERSION{"@PROJECT_VERSION@"};
+constexpr const char* COMMIT_HASH{"@COMMIT_HASH@"};
+constexpr const char* BUILD_TIMESTAMP{"@BUILD_TIMESTAMP@"};
+} // namespace application

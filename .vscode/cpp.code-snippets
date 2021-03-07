@@ -1,0 +1,73 @@
+{
+	"class-C++11": {
+		"prefix": "class-C++11",
+		"description": "Create a C++11 class",
+		"body": [
+            "class ${1:Class} final",
+            "{",
+            "public:",
+                "\t${1}() = default;",
+                "\t~${1}() = default;",
+                "",
+                "\t${1}(const ${1}& cls) = delete;            // Copy-constructor",
+                "\t${1}& operator=(const ${1}& cls) = delete; // Copy-assignment constructor",
+                "\t${1}(${1}&& cls) = delete;                 // Move-constructor",
+                "\t${1}& operator=(${1}&& cls) = delete;      // Move-assignment constructor",
+            "};"
+		]
+    },
+    "classi-C++11": {
+        "prefix": "classi-C++11",
+        "description": "Create a C++11 interface",
+        "body": [
+            "class ${1:Class}",
+            "{",
+            "public:",
+                "\tvirtual ~${1}() = default;",
+            "};"
+        ]
+    },
+
+    "guard": {
+        "prefix": ["include-guard", "guard"],
+        "description": "Include guard for header files",
+        "body": [
+            "#ifndef ${TM_FILENAME/(.*)\\.(.*)\$/${1:/upcase}/}_H",
+            "#define ${TM_FILENAME/(.*)\\.(.*)\$/${1:/upcase}/}_H",
+            "",
+            "#endif // ${TM_FILENAME/(.*)\\.(.*)\$/${1:/upcase}/}_H"
+        ]
+    },
+
+    "gtest": {
+      "prefix": ["unittest", "gtest"],
+      "description": "Template for gtest unittest",
+      "body": [
+        "#include <gtest/gtest.h>",
+        "#include <gmock/gmock.h>",
+        "",
+        "class ${1:Test} : public ::testing::Test",
+        "{",
+        "protected:",
+        "\tvoid SetUp() override",
+        "\t{",
+        "\t}",
+        "",
+        "\tstruct Mock",
+        "\t{",
+        "\t};",
+        "",
+        "\tstruct Defaults",
+        "\t{",
+        "\t};",
+        "",
+        "\tMock mock{};",
+        "\tconst Defaults defaults{};",
+        "};",
+        "",
+        "TEST_F(${1}, ${2:FirstTest})",
+        "{",
+        "}"
+      ]
+    }
+}
