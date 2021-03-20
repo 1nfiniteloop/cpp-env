@@ -6,7 +6,7 @@ extensive build environment configuration before the application development can
 begin. This requires knowledge, patience and time.
 
 The intention with this development environment is to give new projects
-something to build upon and boost a quick start.
+a basic setup and have something to build upon for a quick start.
 
 ## Overview
 
@@ -14,6 +14,8 @@ The build-environment is based on a portable docker-container including all
 basic tools needed, see more in `.devcontainer/Dockerfile`.  No further
 package installations is required, the only prerequisite is that Docker is
 installed.
+
+## Visual Studio Code
 
 Visual Studio Code (VS Code) together with the plugin
 _"ms-vscode-remote.remote-containers"_ makes it very convenient to have the
@@ -28,12 +30,20 @@ extensions will also be installed and set-up accordingly, see more in
 
 A set of user-defined code snippets for creating C++11 classes and interfaces
 exists in `.vscode/cpp.code-snippets`. This file can be copied into
-`~/.config/Code\ -\ Insiders/User/snippets/` for global scope.
+`~/.config/Code/User/snippets/` for global scope.
 
 ### Code formatting
 
 This repository contains a customized `.clang-format` file which is used when
 invoking "Format document" in VS Code.
+
+### IntelliSense
+
+Plugin _llvm-vs-code-extensions.vscode-clangd_ is chosen over
+_ms-vscode.cpptools_ which don't work in Alpine Linux containers (or in general
+from my experience). `build/(Debug|Release)/compile_commands.json` must be
+symlinked to project root for clangd to work, read more @ vscode-clangd
+extension details.
 
 ## Install dependencies
 
@@ -50,6 +60,7 @@ on a docker volume under `~/third_party`.
 
          cd build/Debug \
           && cmake \
+             -D CMAKE_EXPORT_COMPILE_COMMANDS=1 \
              -D VERSION=1.0.0 \
              -D BUILD=Debug \
              ../../ \
@@ -59,6 +70,7 @@ on a docker volume under `~/third_party`.
 
         cd build/Release \
           && cmake \
+             -D CMAKE_EXPORT_COMPILE_COMMANDS=1 \
              -D VERSION=1.0.0 \
              -D BUILD=Release \
              -D UNITTEST=OFF \

@@ -27,6 +27,7 @@ RUN apt-get update \
         --no-install-recommends \
         --assume-yes \
         --quiet \
+        clangd \
         valgrind \
     && rm -r /var/lib/apt/lists/*
 
@@ -53,6 +54,7 @@ RUN useradd \
 # see https://github.com/microsoft/vscode-remote-release/issues/22
 ENV HOME /home/build
 ENV THIRD_PARTY_ROOT /home/build/third_party
+ENV DIST ubuntu
 USER build
 
 CMD ["/bin/bash", "-l"]

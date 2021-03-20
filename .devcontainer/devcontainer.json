@@ -1,9 +1,9 @@
 // Ref: https://code.visualstudio.com/docs/remote/containers#_devcontainerjson-reference
 {
 	"name": "cpp-env",
-	"dockerFile": "Dockerfile",
+	"dockerFile": "alpine/Dockerfile",
 	"extensions": [
-		"ms-vscode.cpptools",
+		"llvm-vs-code-extensions.vscode-clangd",
 		"ms-vscode.cmake-tools",
 		"twxs.cmake"
 	],
