@@ -11,7 +11,7 @@ a basic setup and have something to build upon for a quick start.
 ## Overview
 
 The build-environment is based on a portable docker-container including all
-basic tools needed, see more in `.devcontainer/Dockerfile`.  No further
+basic tools needed, see more in `.devcontainer/${DIST}/Dockerfile`. No further
 package installations is required, the only prerequisite is that Docker is
 installed.
 
@@ -25,12 +25,6 @@ environment simply open this project in VS Code. A notification with an option
 to open this project inside the container will appear. Recommended VS Code
 extensions will also be installed and set-up accordingly, see more in
 `.devcontainer/devcontainer.json`.
-
-### Code snippets
-
-A set of user-defined code snippets for creating C++11 classes and interfaces
-exists in `.vscode/cpp.code-snippets`. This file can be copied into
-`~/.config/Code/User/snippets/` for global scope.
 
 ### Code formatting
 
