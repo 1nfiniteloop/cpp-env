@@ -3,8 +3,23 @@
 readonly gtest_version=1.11.0
 readonly boost_version=1.79.0
 
+get_host_install_dir()
+{
+  local host_system="$(uname -s)"
+  local host_system_processor="$(uname -m)"
+  source /etc/os-release
+  get_install_dir "${host_system}-${ID}" "${host_system_processor}"
+}
+
+get_install_dir()
+{
+  local system="${1}"
+  local system_processor="${2}"
+  echo "${THIRD_PARTY_ROOT}/install/${system}/${system_processor}"
+}
+
 readonly source_dir="${THIRD_PARTY_ROOT}/source"
-readonly install_dir="${THIRD_PARTY_ROOT}/install/${DIST}"
+readonly host_install_dir="$(get_host_install_dir)"
 
 fetch_gtest()
 {
@@ -20,7 +35,7 @@ install_gtest()
   mkdir --parents ${source_dir}/googletest-release-${gtest_version}/build \
       && cd ${source_dir}/googletest-release-${gtest_version}/build \
       && cmake .. \
-      && make install DESTDIR=${install_dir}/googletest-${gtest_version}
+      && make install DESTDIR=${host_install_dir}/googletest-${gtest_version}
 }
 
 gtest()
@@ -45,7 +60,7 @@ install_boost()
   cd ${workdir} \
     && ./bootstrap.sh \
     && ./b2 install \
-       --prefix=${install_dir}/boost_${ver} \
+       --prefix=${host_install_dir}/boost_${ver} \
        --with-program_options
 }
 
@@ -56,7 +71,7 @@ boost()
 
 all()
 {
-  mkdir --parents ${source_dir} ${install_dir} \
+  mkdir --parents ${source_dir} ${host_install_dir} \
     && gtest \
     && boost
 }

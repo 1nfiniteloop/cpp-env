@@ -15,11 +15,17 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb3")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-# THIRD_PARTY_ROOT and DIST provided from Dockerfile
+# DISTRO_ID shall be set from toolchain when cross-compiling
+if(NOT DISTRO_ID)
+  cmake_host_system_information(RESULT DISTRO_ID QUERY DISTRIB_ID)
+endif()
+
+# THIRD_PARTY_ROOT provided from Dockerfile
+set(THIRD_PARTY_INSTALL_PREFIX $ENV{THIRD_PARTY_ROOT}/install/${CMAKE_SYSTEM_NAME}-${DISTRO_ID}/${CMAKE_SYSTEM_PROCESSOR})
 set(CMAKE_PREFIX_PATH
-  $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/googletest-1.11.0
-  $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/benchmark
-  $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/boost_1_79_0
+  ${THIRD_PARTY_INSTALL_PREFIX}/googletest-1.11.0
+  ${THIRD_PARTY_INSTALL_PREFIX}/benchmark
+  ${THIRD_PARTY_INSTALL_PREFIX}/boost_1_79_0
 )
 
 if (UNITTEST)
