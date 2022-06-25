@@ -29,8 +29,12 @@ RUN apt-get update \
         --assume-yes \
         --quiet \
         clangd \
+        clang-format \
+        clang-tidy \
+        python3-pip \
         valgrind \
-    && rm -r /var/lib/apt/lists/*
+    && rm -r /var/lib/apt/lists/* \
+    && python3 -m pip install conan
 
 # Other useful tools.
 RUN apt-get update \

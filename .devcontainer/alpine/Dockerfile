@@ -21,8 +21,10 @@ RUN apk update \
 RUN apk update \
     && apk add --no-cache \
       clang-extra-tools \
+      py3-pip \
       valgrind \
-    && rm -r /var/cache/apk/*
+    && rm -r /var/cache/apk/* \
+    && python3 -m pip install conan
 
 # Other useful tools.
 RUN apk update \
