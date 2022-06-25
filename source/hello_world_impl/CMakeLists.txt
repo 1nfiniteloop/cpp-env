@@ -3,7 +3,7 @@ set(SOURCES
   src/FactoryImpl.cc
   src/GreeterImpl.cc
 )
-add_library(${LIBRARY_NAME} ${SOURCES})
+add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
 target_include_directories(${LIBRARY_NAME}
   PUBLIC inc
   PRIVATE src
