@@ -26,19 +26,6 @@ to open this project inside the container will appear. Recommended VS Code
 extensions will also be installed and set-up accordingly, see more in
 `.devcontainer/devcontainer.json`.
 
-### Code formatting
-
-This repository contains a customized `.clang-format` file which is used when
-invoking "Format document" in VS Code.
-
-### IntelliSense
-
-Plugin _llvm-vs-code-extensions.vscode-clangd_ is chosen over
-_ms-vscode.cpptools_ which don't work in Alpine Linux containers (or in general
-from my experience). `build/(Debug|Release)/compile_commands.json` must be
-symlinked to project root for clangd to work, read more @ vscode-clangd
-extension details.
-
 ## Install dependencies
 
 Install dependencies with `./install-dependencies gtest boost [...]`.
@@ -70,6 +57,30 @@ on a docker volume under `~/third_party`.
              -D UNITTEST=OFF \
              ../../ \
           && make package
+
+### Code formatting
+
+The repository contains `.clang-format` and `.clang-tidy` to control code
+formatting. Invoke "Format document" in VS Code or run manually to format files:
+
+    find source -iname '*.h' -o -iname '*.cpp' -o -iname '*.cc' \
+      |xargs clang-format -i
+
+To format function -and variable names, run:
+
+    run-clang-tidy -fix -header-filter=.* source
+
+__Note:__ clang-tidy requires the compilation database `compile_commands.json`
+to be available. CMake creates this file in the build directory, thus create a
+symlink from the project root to this file.
+
+### IntelliSense
+
+Plugin _llvm-vs-code-extensions.vscode-clangd_ is chosen over
+_ms-vscode.cpptools_ which don't work in Alpine Linux containers (or in general
+from my experience). `build/(Debug|Release)/compile_commands.json` must be
+symlinked to project root for clangd to work, read more @ vscode-clangd
+extension details.
 
 ## Project structure
 
