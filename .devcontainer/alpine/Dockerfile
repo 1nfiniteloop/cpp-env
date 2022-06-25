@@ -1,6 +1,7 @@
-FROM alpine:3.13
+FROM alpine:3.15
 
-RUN sed -i 's|dl-cdn.alpinelinux.org/alpine|ftp.acc.umu.se/mirror/alpinelinux.org|g' /etc/apk/repositories
+ARG ALPINE_MIRROR="ftp.acc.umu.se/mirror/alpinelinux.org"
+RUN sed -i "s|dl-cdn.alpinelinux.org/alpine|${ALPINE_MIRROR}|g" /etc/apk/repositories
 
 # base-tools for C and C++
 RUN apk update \

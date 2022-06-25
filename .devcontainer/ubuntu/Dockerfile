@@ -1,8 +1,9 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_MIRROR="se.archive.ubuntu.com"
 
-RUN sed --in-place=~ 's|archive.ubuntu.com|ftp.acc.umu.se|g' /etc/apt/sources.list
+RUN sed -i "s|archive.ubuntu.com|${DEBIAN_MIRROR}|g" /etc/apt/sources.list
 
 # base-tools for C and C++
 RUN apt-get update \
