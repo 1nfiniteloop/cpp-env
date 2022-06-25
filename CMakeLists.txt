@@ -17,9 +17,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 # THIRD_PARTY_ROOT and DIST provided from Dockerfile
 set(CMAKE_PREFIX_PATH
-  $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/googletest-1.10.0
+  $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/googletest-1.11.0
   $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/benchmark
-  $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/boost_1_73_0
+  $ENV{THIRD_PARTY_ROOT}/install/$ENV{DIST}/boost_1_79_0
 )
 
 if (UNITTEST)
