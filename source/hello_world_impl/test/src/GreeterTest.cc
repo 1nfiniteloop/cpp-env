@@ -12,6 +12,6 @@ TEST(HelloWorldTest, MessageContent)
 {
   std::ostringstream out{};
   GreeterImpl greeter{out};
-  greeter.SayHello();
+  greeter.say_hello();
   ASSERT_EQ("Hello, world!\n", out.str());
 }

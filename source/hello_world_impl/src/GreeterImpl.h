@@ -4,18 +4,17 @@
 
 #include "hello_world/Greeter.h"
 
-
 namespace hello_world
 {
 class GreeterImpl
     : public Greeter
 {
 private:
-  std::ostream& _out;
+  std::ostream& m_out;
 
 public:
   GreeterImpl(std::ostream& out);
 
-  void SayHello() const override;
+  void say_hello() const override;
 };
 } // namespace hello_world

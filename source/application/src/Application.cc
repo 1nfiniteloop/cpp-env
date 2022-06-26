@@ -16,11 +16,11 @@ struct Arguments
 class Application final
 {
 private:
-  const Arguments _args{};
+  const Arguments m_args{};
 
 public:
   Application(Arguments args)
-      : _args{std::move(args)} {}
+      : m_args{std::move(args)} {}
   ~Application() = default;
 
   Application(const Application& cls) = delete;            // Copy-constructor
@@ -28,7 +28,7 @@ public:
   Application(Application&& cls) = delete;                 // Move-constructor
   Application& operator=(Application&& cls) = delete;      // Move-assignment constructor
 
-  void Run() const
+  void run() const
   {
     namespace options = boost::program_options;
     options::options_description desc{"C++ Hello World"};
@@ -36,16 +36,16 @@ public:
         ("help", "Show this help")
         ("version", "Show version and other build parameters");
     options::variables_map mapping{};
-    options::store(options::parse_command_line(_args.count, _args.argv, desc), mapping);
+    options::store(options::parse_command_line(m_args.count, m_args.argv, desc), mapping);
     options::notify(mapping);
 
-    if (_args.count == 1)
+    if (m_args.count == 1)
     {
-      SayHello();
+      say_hello();
     }
     else if (mapping.count("version"))
     {
-      PrintVersion();
+      print_version();
     }
     else
     {
@@ -54,13 +54,13 @@ public:
   }
 
 private:
-  void SayHello() const
+  void say_hello() const
   {
-    auto greeter = hello_world::CreateGreeter();
-    greeter->SayHello();
+    auto greeter = hello_world::create_greeter();
+    greeter->say_hello();
   }
 
-  void PrintVersion() const
+  void print_version() const
   {
     std::cout << "Version: "
               << application::BUILD_VERSION << std::endl
@@ -77,7 +77,7 @@ int main(int argc, char const** argv)
   const Application app{{argc, argv}};
   try
   {
-    app.Run();
+    app.run();
   }
   catch (const boost::program_options::unknown_option& err)
   {

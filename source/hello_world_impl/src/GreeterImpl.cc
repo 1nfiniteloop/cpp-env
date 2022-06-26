@@ -1,19 +1,17 @@
 #include <iostream>
 
-#include "hello_world/Greeter.h"
 #include "GreeterImpl.h"
-
+#include "hello_world/Greeter.h"
 
 namespace hello_world
 {
 GreeterImpl::GreeterImpl(std::ostream& out)
-    : _out{out}
+    : m_out{out}
 {
-
 }
 
-void GreeterImpl::SayHello() const
+void GreeterImpl::say_hello() const
 {
-  _out << "Hello, world!" << std::endl;
+  m_out << "Hello, world!" << std::endl;
 }
 } // namespace hello_world
