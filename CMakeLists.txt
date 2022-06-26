@@ -38,9 +38,7 @@ endif()
 include(ImportBoost)
 
 # Project components
-add_subdirectory(hello_world)
-add_subdirectory(hello_world_impl)
-add_subdirectory(application)
+add_subdirectory(source)
 
 # Package
 include(PackageDebian) # or "include(PackageTarGzip)"

@@ -1,0 +1,3 @@
+add_subdirectory(application)
+add_subdirectory(hello_world)
+add_subdirectory(hello_world_impl)
