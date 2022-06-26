@@ -32,7 +32,8 @@
 *.app
 
 # Project
-build/
-.vscode/
+.cache/
 .clangd/
+.vscode/
+build/
 compile_commands.json
