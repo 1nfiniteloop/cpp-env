@@ -1,0 +1,3 @@
+add_subdirectory(libgreeter_dynamic)
+add_subdirectory(libgreeter_static)
+add_subdirectory(hello_world)

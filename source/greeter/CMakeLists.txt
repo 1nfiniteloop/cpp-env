@@ -1,5 +1,18 @@
-set(LIBRARY_NAME greeter)
-add_library(${LIBRARY_NAME} INTERFACE)
-target_include_directories(${LIBRARY_NAME}
-  INTERFACE inc
+set(COMPONENT_NAME library-dev)
+
+get_filename_component(TARGET_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+set(SOURCES
+  inc/${TARGET_NAME}/Factory.h
+  inc/${TARGET_NAME}/Greeter.h
+)
+add_library(${TARGET_NAME} INTERFACE)
+target_sources(${TARGET_NAME} INTERFACE
+  FILE_SET HEADERS
+  BASE_DIRS inc
+  FILES ${SOURCES}
+)
+install(
+  TARGETS ${TARGET_NAME}
+  COMPONENT ${COMPONENT_NAME}
+  FILE_SET HEADERS
 )

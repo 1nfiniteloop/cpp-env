@@ -1,19 +1,14 @@
-set(EXECUTABLE_NAME application)
 set(SOURCES
   src/Application.cc
 )
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
-target_link_libraries(${EXECUTABLE_NAME}
+get_filename_component(TARGET_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+add_library(${TARGET_NAME} OBJECT ${SOURCES})
+target_link_libraries(${TARGET_NAME}
   Boost::program_options
+  greeter
 )
-target_include_directories(${EXECUTABLE_NAME}
+target_include_directories(${TARGET_NAME}
   PRIVATE src ${CMAKE_CURRENT_BINARY_DIR}/src
-)
-target_link_libraries(${EXECUTABLE_NAME} greeter_impl)
-install(
-  TARGETS ${EXECUTABLE_NAME}
-  DESTINATION bin
-  COMPONENT application
 )
 
 add_custom_target(generate_buildinfo
@@ -25,4 +20,4 @@ add_custom_target(generate_buildinfo
     -D CURRENT_BINARY_DIR=${CMAKE_CURRENT_BINARY_DIR}
     -P ${CMAKE_CURRENT_SOURCE_DIR}/GenerateBuildInfo.cmake
 )
-add_dependencies(${EXECUTABLE_NAME} generate_buildinfo)
+add_dependencies(${TARGET_NAME} generate_buildinfo)

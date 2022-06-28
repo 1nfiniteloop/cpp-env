@@ -6,7 +6,8 @@ extensive build environment configuration before the application development can
 begin. This requires knowledge, patience and time.
 
 The intention with this development environment is to give new projects
-a basic setup and have something to build upon for a quick start.
+a basic setup and structure to build upon, that also scales well as
+the project grows.
 
 ## Overview
 
@@ -84,40 +85,86 @@ extension details.
 
 ## Project structure
 
-This project contains three basic components. It demonstrates how to organize a
-project in a modular and maintainable structure and favor dependency inversion
-principle:
+The structure demonstrates how to organize a project in a modular and
+maintainable way. The structure is intended to scale well as the project grows
+and be easy to understand. When looking at included files, it's easy to
+know what target and module it originates from:
 
-* _greeter_impl_: This component holds an implementation and produces a
-  static library when built.
-* _greeter_: This component contains interfaces only and no implementation,
-  thus nothing is produced when built. Another component is responsible for
-  implementing these interfaces (_greeter_impl_ in this example). Other
-  components in the project shall depend on this, rather than the implementation.
-* _Application:_ This component contains the main function and builds an
-  executable (in this example) by linking together all implementation components.
+    #include "greeter/Factory.h"
 
-```text
-application/
-├── CMakeLists.txt
-├── GenerateBuildInfo.cmake
-└── src
-    ├── Application.cc
-    └── BuildInfo.h.in
-greeter
-├── CMakeLists.txt
-└── inc
-    └── greeter
-        ├── Factory.h
-        └── Greeter.h
-greeter_impl
-├── CMakeLists.txt
-├── src
-│   ├── FactoryImpl.cc
-│   ├── GreeterImpl.cc
-│   └── GreeterImpl.h
-└── test
+Because the "include prefix" is the same as the module's folder name as well as
+the target name.
+
+### source folder
+
+This folder contains all source code of the project as separate modules:
+
+    source/
+    ├── application
+    │   ├── CMakeLists.txt
+    │   ├── GenerateBuildInfo.cmake
+    │   └── src
+    │       ├── Application.cc
+    │       └── BuildInfo.h.in
     ├── CMakeLists.txt
-    └── src
-        └── GreeterTest.cc
-```
+    ├── greeter
+    │   ├── CMakeLists.txt
+    │   └── inc
+    │       └── greeter
+    │           ├── Factory.h
+    │           └── Greeter.h
+    └── greeter_impl
+        ├── CMakeLists.txt
+        ├── src
+        │   ├── FactoryImpl.cc
+        │   ├── GreeterImpl.cc
+        │   └── GreeterImpl.h
+        └── test
+            ├── CMakeLists.txt
+            └── src
+                └── GreeterTest.cc
+
+Description:
+
+* _Application:_ This module contains the main function and is the top level
+  module that nothing depends on.
+* _greeter_: This module contains interfaces only and has no implementation,
+  thus nothing is produced when built. Another module is responsible for
+  implementing these interfaces (_greeter_impl_ in this example). Other
+  modules in the project shall depend on this to favor dependency inversion
+  principle, rather than depend on the implementation.
+* _greeter_impl_: This module contains an implementation of the _greeter_
+  interface.
+
+### export folder
+
+This folder conains all targets (libraries and executables) that is produced
+from this project. It contains no source code, instead the executable and
+libraries is built upon including source code modules of choice. This makes it
+easy to reuse source code modules and create new targets and variants. Example
+"hello_world" is a statically linked cmdline application that is built upon
+modules "application" and  "greeter_impl".
+
+    export/
+    ├── CMakeLists.txt
+    ├── hello_world
+    │   └── CMakeLists.txt
+    ├── libgreeter_dynamic
+    │   └── CMakeLists.txt
+    └── libgreeter_static
+        └── CMakeLists.txt
+
+### install and package
+
+Following components is defined that each produces a package/installation:
+
+    $ make list_install_components
+    Available install components are: "application" "library" "library-dev"
+
+Description:
+
+* _application:_ Contains the statically linked hello_world app.
+* _library:_ Contains a dynamic library that external applications uses during
+  runtime.
+* _library-dev:_ Contains library headers, dynamic library and static library
+  for app developers.

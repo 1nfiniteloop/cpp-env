@@ -1,4 +1,4 @@
-set(UNITTEST_NAME "${LIBRARY_NAME}_test")
+set(UNITTEST_NAME "${TARGET_NAME}_test")
 set(SOURCES
   src/GreeterTest.cc
 )

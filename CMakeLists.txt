@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(cpp-env
+project(hello_world
   VERSION ${VERSION}
   DESCRIPTION "Hello world example application written in C++"
   HOMEPAGE_URL "https://github.com/1nfiniteloop/cpp-env"
@@ -28,6 +28,8 @@ set(CMAKE_PREFIX_PATH
   ${THIRD_PARTY_INSTALL_PREFIX}/boost_1_79_0
 )
 
+# TODO: also consider cross-compile flag
+# https://cmake.org/cmake/help/latest/variable/CMAKE_CROSSCOMPILING.html
 if (UNITTEST)
   include(ImportGTest)
   enable_testing()
@@ -39,6 +41,7 @@ include(ImportBoost)
 
 # Project components
 add_subdirectory(source)
+add_subdirectory(export)
 
 # Package
-include(PackageDebian) # or "include(PackageTarGzip)"
+include(PackageTarGzip) # or "include(PackageDebian)"
