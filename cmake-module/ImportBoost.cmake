@@ -1,3 +1,4 @@
+set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.70 REQUIRED
   COMPONENTS program_options
   PATH_SUFFIXES lib/cmake/Boost-1.73.0
