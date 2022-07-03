@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 ARG ALPINE_MIRROR="ftp.acc.umu.se/mirror/alpinelinux.org"
 RUN sed -i "s|dl-cdn.alpinelinux.org/alpine|${ALPINE_MIRROR}|g" /etc/apk/repositories
