@@ -2,9 +2,9 @@
 
 #include <ostream>
 
-#include "hello_world/Greeter.h"
+#include "greeter/Greeter.h"
 
-namespace hello_world
+namespace greeter
 {
 class GreeterImpl
     : public Greeter
@@ -17,4 +17,4 @@ public:
 
   void say_hello() const override;
 };
-} // namespace hello_world
+} // namespace greeter

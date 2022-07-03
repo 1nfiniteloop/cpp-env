@@ -2,8 +2,8 @@
 #include <iostream>
 
 #include "BuildInfo.h"
-#include "hello_world/Factory.h"
-#include "hello_world/Greeter.h"
+#include "greeter/Factory.h"
+#include "greeter/Greeter.h"
 
 namespace
 {
@@ -56,7 +56,7 @@ public:
 private:
   void say_hello() const
   {
-    auto greeter = hello_world::create_greeter();
+    auto greeter = greeter::create_greeter();
     greeter->say_hello();
   }
 

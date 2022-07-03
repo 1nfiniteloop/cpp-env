@@ -1,3 +1,3 @@
 add_subdirectory(application)
-add_subdirectory(hello_world)
-add_subdirectory(hello_world_impl)
+add_subdirectory(greeter)
+add_subdirectory(greeter_impl)

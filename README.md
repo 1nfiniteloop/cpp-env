@@ -88,11 +88,11 @@ This project contains three basic components. It demonstrates how to organize a
 project in a modular and maintainable structure and favor dependency inversion
 principle:
 
-* _hello_world_impl_: This component holds an implementation and produces a
+* _greeter_impl_: This component holds an implementation and produces a
   static library when built.
-* _hello_world_: This component contains interfaces only and no implementation,
+* _greeter_: This component contains interfaces only and no implementation,
   thus nothing is produced when built. Another component is responsible for
-  implementing these interfaces (_hello_world_impl_ in this example). Other
+  implementing these interfaces (_greeter_impl_ in this example). Other
   components in the project shall depend on this, rather than the implementation.
 * _Application:_ This component contains the main function and builds an
   executable (in this example) by linking together all implementation components.
@@ -104,13 +104,13 @@ application/
 └── src
     ├── Application.cc
     └── BuildInfo.h.in
-hello_world
+greeter
 ├── CMakeLists.txt
 └── inc
-    └── hello_world
+    └── greeter
         ├── Factory.h
         └── Greeter.h
-hello_world_impl
+greeter_impl
 ├── CMakeLists.txt
 ├── src
 │   ├── FactoryImpl.cc

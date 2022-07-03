@@ -1,4 +1,4 @@
-set(LIBRARY_NAME hello_world_impl)
+set(LIBRARY_NAME greeter_impl)
 set(SOURCES
   src/FactoryImpl.cc
   src/GreeterImpl.cc
@@ -9,7 +9,7 @@ target_include_directories(${LIBRARY_NAME}
   PRIVATE src
 )
 target_link_libraries(${LIBRARY_NAME}
-  PUBLIC hello_world
+  PUBLIC greeter
 )
 
 if (UNITTEST)

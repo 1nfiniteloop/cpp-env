@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 
-#include "hello_world/Greeter.h"
+#include "greeter/Greeter.h"
 
 #include <sstream>
 
 #include "GreeterImpl.h"
 
-using namespace hello_world;
+using namespace greeter;
 
 TEST(HelloWorldTest, MessageContent)
 {

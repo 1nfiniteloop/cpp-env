@@ -7,7 +7,7 @@
 /**
  * Static factory method
  */
-namespace hello_world
+namespace greeter
 {
 std::unique_ptr<Greeter> create_greeter();
-} // namespace hello_world
+} // namespace greeter

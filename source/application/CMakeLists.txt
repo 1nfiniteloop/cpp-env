@@ -9,7 +9,7 @@ target_link_libraries(${EXECUTABLE_NAME}
 target_include_directories(${EXECUTABLE_NAME}
   PRIVATE src ${CMAKE_CURRENT_BINARY_DIR}/src
 )
-target_link_libraries(${EXECUTABLE_NAME} hello_world_impl)
+target_link_libraries(${EXECUTABLE_NAME} greeter_impl)
 install(
   TARGETS ${EXECUTABLE_NAME}
   DESTINATION bin

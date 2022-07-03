@@ -9,6 +9,6 @@ target_include_directories(${UNITTEST_NAME}
   PRIVATE ../src
 )
 target_link_libraries(${UNITTEST_NAME} PRIVATE
-  hello_world_impl
+  greeter_impl
   GTest::gmock_main
 )
