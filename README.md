@@ -42,7 +42,6 @@ on a docker volume under `~/third_party`.
 
          cd build/Debug \
           && cmake \
-             -D CMAKE_EXPORT_COMPILE_COMMANDS=1 \
              -D VERSION=1.0.0 \
              -D BUILD=Debug \
              ../../ \
@@ -52,7 +51,6 @@ on a docker volume under `~/third_party`.
 
         cd build/Release \
           && cmake \
-             -D CMAKE_EXPORT_COMPILE_COMMANDS=1 \
              -D VERSION=1.0.0 \
              -D BUILD=Release \
              -D UNITTEST=OFF \

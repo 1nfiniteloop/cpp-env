@@ -5,6 +5,7 @@ project(hello_world
   HOMEPAGE_URL "https://github.com/1nfiniteloop/cpp-env"
 )
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake-module)
 set(CMAKE_BUILD_TYPE ${BUILD})
 option(UNITTEST "Build unit tests and its dependencies" ON)
