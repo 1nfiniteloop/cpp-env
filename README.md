@@ -53,7 +53,7 @@ on a docker volume under `~/third_party`.
           && cmake \
              -D VERSION=1.0.0 \
              -D BUILD=Release \
-             -D UNITTEST=OFF \
+             -D WITH_UNITTEST=OFF \
              ../../ \
           && make package
 

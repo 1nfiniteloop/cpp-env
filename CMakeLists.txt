@@ -8,7 +8,7 @@ project(hello_world
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake-module)
 set(CMAKE_BUILD_TYPE ${BUILD})
-option(UNITTEST "Build unit tests and its dependencies" ON)
+option(WITH_UNITTEST "Build unit tests and its dependencies" ON)
 
 # Language-specific settings
 add_compile_options(-Wall -Wextra -pedantic -Werror)
@@ -29,9 +29,8 @@ set(CMAKE_PREFIX_PATH
   ${THIRD_PARTY_INSTALL_PREFIX}/boost_1_79_0
 )
 
-# TODO: also consider cross-compile flag
-# https://cmake.org/cmake/help/latest/variable/CMAKE_CROSSCOMPILING.html
-if (UNITTEST)
+if (WITH_UNITTEST AND NOT CMAKE_CROSSCOMPILING)
+  set(UNITTEST TRUE)
   include(ImportGTest)
   enable_testing()
   add_custom_target(test_all COMMAND ${CMAKE_CTEST_COMMAND})
