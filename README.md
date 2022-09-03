@@ -29,33 +29,46 @@ extensions will also be installed and set-up accordingly, see more in
 
 ## Install dependencies
 
-Install dependencies with `./install-dependencies gtest boost [...]`.
+Install dependencies:
+
+    third_party/gtest
+    third_party/boost
 
 Note: This shall be run from inside the container. The dependencies is cached
-on a docker volume under `~/third_party`.
+on a docker volume under `${THIRD_PARTY_ROOT}`.
 
 ## Build
 
-1. Create build tree with `mkdir --parents build/{Debug,Release}`
+### Debug
 
-2. Build _Debug_ and run tests:
+Configure:
 
-         cd build/Debug \
-          && cmake \
-             -D VERSION=1.0.0 \
-             -D BUILD=Debug \
-             ../../ \
-          && make test_all
+    cmake \
+      -B build/Debug \
+      -D VERSION=1.0.0 \
+      -D BUILD=Debug
 
-3. Build _Release_ and make package:
+Build and run tests:
 
-        cd build/Release \
-          && cmake \
-             -D VERSION=1.0.0 \
-             -D BUILD=Release \
-             -D WITH_UNITTEST=OFF \
-             ../../ \
-          && make package
+    cmake --build build/Debug -- test_all
+    # or:
+    make -C build/Debug test_all
+
+### Release
+
+Configure:
+
+    cmake \
+      -B build/Release \
+      -D VERSION=1.0.0 \
+      -D BUILD=Release \
+      -D WITH_UNITTEST=OFF
+
+Build package:
+
+    cmake --build build/Release -- package
+    # or:
+    make -C build/Release package
 
 ### Code formatting
 
