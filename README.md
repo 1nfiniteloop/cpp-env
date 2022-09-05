@@ -29,13 +29,10 @@ extensions will also be installed and set-up accordingly, see more in
 
 ## Install dependencies
 
-Install dependencies:
+Run:
 
-    third_party/gtest
-    third_party/boost
-
-Note: This shall be run from inside the container. The dependencies is cached
-on a docker volume under `${THIRD_PARTY_ROOT}`.
+    third_party/gtest ${THIRD_PARTY_ROOT}
+    third_party/boost ${THIRD_PARTY_ROOT}
 
 ## Build
 
@@ -45,6 +42,7 @@ Configure:
 
     cmake \
       -B build/Debug \
+      -D THIRD_PARTY_ROOT=${THIRD_PARTY_ROOT} \
       -D VERSION=1.0.0 \
       -D BUILD=Debug
 
@@ -60,6 +58,7 @@ Configure:
 
     cmake \
       -B build/Release \
+      -D THIRD_PARTY_ROOT=${THIRD_PARTY_ROOT} \
       -D VERSION=1.0.0 \
       -D BUILD=Release \
       -D WITH_UNITTEST=OFF

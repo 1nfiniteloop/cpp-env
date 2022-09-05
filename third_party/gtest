@@ -1,0 +1,28 @@
+#!/bin/bash
+set -ue
+
+readonly version="1.11.0"
+readonly name="googletest-release-${version}"
+
+fetch()
+{
+  http_try_fetch "https://github.com/google/googletest/archive/release-${version}.tar.gz"
+}
+
+configure()
+{
+  cmake \
+    -S "${SOURCE_DIR}" \
+    -B "${BUILD_DIR}"
+}
+
+install()
+{
+  make \
+    --directory "${BUILD_DIR}" \
+    install DESTDIR="${INSTALL_DIR}"
+}
+
+source ${0%/*}/main.sh \
+  name="${name}" \
+  dst="${1}"

@@ -9,6 +9,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake-module)
 set(CMAKE_BUILD_TYPE ${BUILD})
 option(WITH_UNITTEST "Build unit tests and its dependencies" ON)
+if(NOT DEFINED THIRD_PARTY_ROOT)
+  message(FATAL_ERROR "THIRD_PARTY_ROOT not set")
+endif()
 
 # Language-specific settings
 add_compile_options(-Wall -Wextra -pedantic -Werror)
@@ -21,23 +24,20 @@ if(NOT DISTRO_ID)
   cmake_host_system_information(RESULT DISTRO_ID QUERY DISTRIB_ID)
 endif()
 
-# THIRD_PARTY_ROOT provided from Dockerfile
-set(THIRD_PARTY_INSTALL_PREFIX $ENV{THIRD_PARTY_ROOT}/install/${CMAKE_SYSTEM_NAME}-${DISTRO_ID}/${CMAKE_SYSTEM_PROCESSOR})
-set(CMAKE_PREFIX_PATH
-  ${THIRD_PARTY_INSTALL_PREFIX}/googletest-1.11.0
-  ${THIRD_PARTY_INSTALL_PREFIX}/benchmark
-  ${THIRD_PARTY_INSTALL_PREFIX}/boost_1_79_0
+# Third party dependencies:
+set(THIRD_PARTY_INSTALL_PREFIX ${THIRD_PARTY_ROOT}/install/${DISTRO_ID}_${CMAKE_SYSTEM_PROCESSOR})
+file(GLOB CMAKE_PREFIX_PATH
+  ${THIRD_PARTY_INSTALL_PREFIX}/googletest-*/usr/local
+  ${THIRD_PARTY_INSTALL_PREFIX}/boost_*
 )
+find_package(Boost 1.70 REQUIRED COMPONENTS program_options)
 
 if (WITH_UNITTEST AND NOT CMAKE_CROSSCOMPILING)
   set(UNITTEST TRUE)
-  include(ImportGTest)
+  find_package(GTest REQUIRED)
   enable_testing()
   add_custom_target(test_all COMMAND ${CMAKE_CTEST_COMMAND})
 endif()
-
-# Third party dependencies:
-include(ImportBoost)
 
 # Project components
 add_subdirectory(source)
