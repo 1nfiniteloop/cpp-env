@@ -5,6 +5,7 @@ http_try_fetch()
 {
   local http_url="${1}"
   if [[ ! -e "${SOURCE_DIR}" ]]; then
+    mkdir -p ${SOURCE_DIR}
     curl \
       --location \
       ${http_url} \
