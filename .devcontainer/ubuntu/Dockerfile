@@ -1,4 +1,4 @@
-FROM ubuntu:kinetic
+FROM ubuntu:jammy
 
 ENV DEBIAN_FRONTEND=noninteractive
 ARG DEBIAN_MIRROR="se.archive.ubuntu.com"
@@ -13,7 +13,6 @@ RUN apt-get update \
     --quiet \
     autoconf \
     automake \
-    cmake \
     g++ \
     gcc \
     gdb \
@@ -42,12 +41,21 @@ RUN apt-get update \
     --no-install-recommends \
     --assume-yes \
     --quiet \
+    bzip2 \
     ca-certificates \
     curl \
     git \
     less \
     xz-utils \
   && rm -r /var/lib/apt/lists/*
+
+ARG CMAKE_VERSION=3.25.0
+RUN curl \
+  --location \
+  --remote-name \
+  https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.sh \
+  && bash cmake-${CMAKE_VERSION}-linux-x86_64.sh -- --skip-license --prefix=/usr/local \
+  && rm cmake-${CMAKE_VERSION}-linux-x86_64.sh
 
 RUN useradd \
   --uid 1000 \
