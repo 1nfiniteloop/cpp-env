@@ -48,7 +48,7 @@ Configure:
 
 Build and run tests:
 
-    cmake --build build/Debug -- test_all
+    cmake --build build/Debug --target test_all
     # or:
     make -C build/Debug test_all
 
@@ -65,7 +65,7 @@ Configure:
 
 Build package:
 
-    cmake --build build/Release -- package
+    cmake --build build/Release --target package
     # or:
     make -C build/Release package
 
